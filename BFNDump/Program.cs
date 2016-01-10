@@ -97,47 +97,7 @@ namespace BFNDump
 
                 foreach (Bitmap bmp in alignedGlyphSheets)
                 {
-                    int blocksHCount = bmp.Height / 8;
-                    int blocksWCount = bmp.Width / 8;
-
-                    int pixelCount = 0;
-
-                    for (int yBlocks = 0; yBlocks < blocksHCount; yBlocks++)
-                    {
-                        for (int xBlocks = 0; xBlocks < blocksWCount; xBlocks++)
-                        {
-                            for (int pY = 0; pY < 8; pY++)
-                            {
-                                byte curPixel = 0;
-                                bool firstByteProcessed = false;
-
-                                for (int pX = 0; pX < 8; pX++)
-                                {
-                                    int srcXPixel = (xBlocks * 8) + pX;
-                                    int srcYPixel = (yBlocks * 8) + pY;
-
-                                    Color pixelColor = bmp.GetPixel(srcXPixel, srcYPixel);
-                                    byte pixelIntensity = (byte)(pixelColor.R / 0x11); // You should look up the conversion on this, I'm guessing here.
-
-                                    // We haven't packed the first byte into the output byte, so this would be the left shifted
-                                    // first half.
-                                    if (!firstByteProcessed)
-                                    {
-                                        curPixel = (byte)(pixelIntensity << 4);
-                                        firstByteProcessed = true;
-                                    }
-                                    else
-                                    {
-                                        curPixel = (byte)(curPixel | pixelIntensity); // Not sure if this needs a shift, or a mask... if you &'d it, wouldn't that overwrite?
-
-                                        // curPixel now has two pixels into it, so we can pack it into the output stream.
-                                        finalCompiledSheet.Add(curPixel);
-                                        firstByteProcessed = false;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    finalCompiledSheet.AddRange(BinaryTextureImage.EncodeData(bmp, (uint)bmp.Width, (uint)bmp.Height, BinaryTextureImage.TextureFormats.I4));
                 }
 
                 byte[] finalSheetArray = BinaryTextureImage.DecodeData(new EndianBinaryReader(finalCompiledSheet.ToArray(), Endian.Big), 160, 160 * 4, BinaryTextureImage.TextureFormats.I4);

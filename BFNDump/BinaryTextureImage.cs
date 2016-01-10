@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace BFNDump
 {
@@ -834,6 +835,68 @@ namespace BFNDump
             dest[destOffset + 1] = b;
             dest[destOffset + 2] = g;
             dest[destOffset + 3] = r;
+        }
+        #endregion
+
+        #region Encoding
+        public static byte[] EncodeData(Bitmap bmp, uint width, uint height, TextureFormats format)
+        {
+            switch (format)
+            {
+                case TextureFormats.I4:
+                    return EncodeI4(bmp, width, height);
+                default:
+                    return new byte[0];
+            }
+        }
+
+        private static byte[] EncodeI4(Bitmap bmp, uint width, uint height)
+        {
+            List<byte> encodedImage = new List<byte>();
+
+            int blocksHCount = (int)height / 8;
+            int blocksWCount = (int)width / 8;
+
+            int pixelCount = 0;
+
+            for (int yBlocks = 0; yBlocks < blocksHCount; yBlocks++)
+            {
+                for (int xBlocks = 0; xBlocks < blocksWCount; xBlocks++)
+                {
+                    for (int pY = 0; pY < 8; pY++)
+                    {
+                        byte curPixel = 0;
+                        bool firstByteProcessed = false;
+
+                        for (int pX = 0; pX < 8; pX++)
+                        {
+                            int srcXPixel = (xBlocks * 8) + pX;
+                            int srcYPixel = (yBlocks * 8) + pY;
+
+                            Color pixelColor = bmp.GetPixel(srcXPixel, srcYPixel);
+                            byte pixelIntensity = (byte)(pixelColor.R / 0x11); // You should look up the conversion on this, I'm guessing here.
+
+                            // We haven't packed the first byte into the output byte, so this would be the left shifted
+                            // first half.
+                            if (!firstByteProcessed)
+                            {
+                                curPixel = (byte)(pixelIntensity << 4);
+                                firstByteProcessed = true;
+                            }
+                            else
+                            {
+                                curPixel = (byte)(curPixel | pixelIntensity); // Not sure if this needs a shift, or a mask... if you &'d it, wouldn't that overwrite?
+
+                                // curPixel now has two pixels into it, so we can pack it into the output stream.
+                                encodedImage.Add(curPixel);
+                                firstByteProcessed = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return encodedImage.ToArray();
         }
         #endregion
     }
