@@ -857,8 +857,6 @@ namespace BFNDump
             int blocksHCount = (int)height / 8;
             int blocksWCount = (int)width / 8;
 
-            int pixelCount = 0;
-
             for (int yBlocks = 0; yBlocks < blocksHCount; yBlocks++)
             {
                 for (int xBlocks = 0; xBlocks < blocksWCount; xBlocks++)
@@ -874,7 +872,7 @@ namespace BFNDump
                             int srcYPixel = (yBlocks * 8) + pY;
 
                             Color pixelColor = bmp.GetPixel(srcXPixel, srcYPixel);
-                            byte pixelIntensity = (byte)(pixelColor.R / 0x11); // You should look up the conversion on this, I'm guessing here.
+                            byte pixelIntensity = (byte)(pixelColor.R / 0x11);
 
                             // We haven't packed the first byte into the output byte, so this would be the left shifted
                             // first half.
@@ -885,7 +883,7 @@ namespace BFNDump
                             }
                             else
                             {
-                                curPixel = (byte)(curPixel | pixelIntensity); // Not sure if this needs a shift, or a mask... if you &'d it, wouldn't that overwrite?
+                                curPixel = (byte)(curPixel | pixelIntensity);
 
                                 // curPixel now has two pixels into it, so we can pack it into the output stream.
                                 encodedImage.Add(curPixel);
