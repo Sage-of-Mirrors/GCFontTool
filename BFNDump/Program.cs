@@ -117,7 +117,7 @@ namespace BFNDump
                                     int srcYPixel = (yBlocks * 8) + pY;
 
                                     Color pixelColor = bmp.GetPixel(srcXPixel, srcYPixel);
-                                    byte pixelIntensity = (byte)(pixelColor.R / 0x11); // You should look up the conversion on this, I'm guessing here.
+                                    byte pixelIntensity = (byte)(pixelColor.R / 0x10); // You should look up the conversion on this, I'm guessing here.
 
                                     // We haven't packed the first byte into the output byte, so this would be the left shifted
                                     // first half.
