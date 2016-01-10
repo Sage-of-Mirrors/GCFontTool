@@ -1,0 +1,7 @@
+c:\users\dylan\documents\visual studio 2013\Projects\BFNDump\BFNDump\bin\Debug\BFNDump.exe.config
+c:\users\dylan\documents\visual studio 2013\Projects\BFNDump\BFNDump\obj\Debug\BFNDump.csprojResolveAssemblyReference.cache
+c:\users\dylan\documents\visual studio 2013\Projects\BFNDump\BFNDump\bin\Debug\BFNDump.exe
+c:\users\dylan\documents\visual studio 2013\Projects\BFNDump\BFNDump\bin\Debug\BFNDump.pdb
+c:\users\dylan\documents\visual studio 2013\Projects\BFNDump\BFNDump\bin\Debug\GameFormatReader.dll
+c:\users\dylan\documents\visual studio 2013\Projects\BFNDump\BFNDump\obj\Debug\BFNDump.exe
+c:\users\dylan\documents\visual studio 2013\Projects\BFNDump\BFNDump\obj\Debug\BFNDump.pdb
