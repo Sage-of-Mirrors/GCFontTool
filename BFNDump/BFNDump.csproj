@@ -50,6 +50,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Font.cs" />
+    <Compile Include="src\Font.cs" />
+    <Compile Include="src\Font_BFN.cs" />
+    <Compile Include="src\Font_BMFont.cs" />
+    <Compile Include="src\Font_JSON.cs" />
+    <Compile Include="src\Glyph.cs" />
+    <Compile Include="src\Sheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
