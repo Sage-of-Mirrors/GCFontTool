@@ -51,6 +51,18 @@ namespace BFNDump
                 case ".fnt":
                     break;
             }
+
+            string name_csv_path = Path.Combine(Path.GetDirectoryName(FileName), "glyph_names.csv");
+
+            if (File.Exists(name_csv_path))
+            {
+                LoadNames(name_csv_path);
+            }
+        }
+
+        private void LoadNames(string FileName)
+        {
+
         }
 
         public void Save(string FileName)
