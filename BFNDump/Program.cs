@@ -16,6 +16,10 @@ namespace BFNDump
     {
         static void Main(string[] args)
         {
+            Font f = new Font();
+            f.Load("C:\\Games\\testbfn.bfn");
+
+
             font fnt;
 
             fontPages pages;

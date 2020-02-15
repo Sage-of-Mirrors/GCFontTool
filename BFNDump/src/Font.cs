@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using GameFormatReader.Common;
 
 namespace BFNDump
 {
@@ -36,7 +37,13 @@ namespace BFNDump
         public int ReplacementCode { get; set; }
 
         public List<Sheet> Sheets { get; set; }
-        public List<Glyph> Glyphs { get; set; }
+        public List<Glyph[]> Glyphs { get; set; }
+
+        public Font()
+        {
+            Sheets = new List<Sheet>();
+            Glyphs = new List<Glyph[]>();
+        }
 
         public void Load(string FileName)
         {
@@ -45,6 +52,11 @@ namespace BFNDump
             switch(extension)
             {
                 case ".bfn":
+                    using (FileStream strm = new FileStream(FileName, FileMode.Open, FileAccess.Read))
+                    {
+                        EndianBinaryReader reader = new EndianBinaryReader(strm, Endian.Big);
+                        LoadBFN(reader);
+                    }
                     break;
                 case ".json":
                     break;
