@@ -35,6 +35,9 @@
     <Reference Include="GameFormatReader">
       <HintPath>..\..\WpfApplication1\WpfApplication1\GameFormatReader.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -55,10 +58,12 @@
     <Compile Include="src\Font_BMFont.cs" />
     <Compile Include="src\Font_JSON.cs" />
     <Compile Include="src\Glyph.cs" />
+    <Compile Include="src\GlyphBlock.cs" />
     <Compile Include="src\Sheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="GameFormatReader.dll" />

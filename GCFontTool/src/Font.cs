@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using GameFormatReader.Common;
+using Newtonsoft.Json;
 
 namespace BFNDump
 {
@@ -26,7 +27,6 @@ namespace BFNDump
     public partial class Font
     {
         public CodepointEncoding Encoding { get; set; }
-        public GlyphMapping Mapping { get; set; }
 
         public int Ascent { get; set; }
         public int Descent { get; set; }
@@ -37,12 +37,12 @@ namespace BFNDump
         public int ReplacementCode { get; set; }
 
         public List<Sheet> Sheets { get; set; }
-        public List<Glyph[]> Glyphs { get; set; }
+        public List<GlyphBlock> GlyphBlocks { get; set; }
 
         public Font()
         {
             Sheets = new List<Sheet>();
-            Glyphs = new List<Glyph[]>();
+            GlyphBlocks = new List<GlyphBlock>();
         }
 
         public void Load(string FileName)
@@ -59,6 +59,7 @@ namespace BFNDump
                     }
                     break;
                 case ".json":
+                    LoadJSON(FileName);
                     break;
                 case ".fnt":
                     break;
@@ -84,8 +85,10 @@ namespace BFNDump
             switch (extension)
             {
                 case ".bfn":
+                    SaveBFN(FileName);
                     break;
                 case ".json":
+                    SaveJSON(FileName);
                     break;
                 case ".fnt":
                     break;

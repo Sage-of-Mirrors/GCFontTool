@@ -17,9 +17,10 @@ namespace BFNDump
         static void Main(string[] args)
         {
             Font f = new Font();
-            f.Load("C:\\Games\\testbfn.bfn");
+            f.Load(@"D:\SZS Tools\FontStuff\font.json");
+            f.Save(@"D:\SZS Tools\FontStuff\font_winnebago.bfn");
 
-
+            /*
             font fnt;
 
             fontPages pages;
@@ -130,7 +131,7 @@ namespace BFNDump
             using(EndianBinaryWriter writer = new EndianBinaryWriter(new FileStream(@"C:\Program Files (x86)\SZS Tools\TestFont\test.bfn",FileMode.Create), Endian.Big))
             {
                 WriteBFN(writer, chars, finalCompiledSheet.ToArray());
-            }
+            }*/
         }
 
         private static void WriteBFN(EndianBinaryWriter stream, fontChars characters, byte[] encodedImageData)
